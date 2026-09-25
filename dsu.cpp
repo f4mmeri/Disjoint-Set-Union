@@ -1,11 +1,31 @@
 #include <iostream>
 #include <vector>
+#include <string>
+#include <sstream>
+#include <fstream>
+
 using namespace std;
 
 class DSU {
 private:
     vector<int> parent;
     vector<int> size;
+    vector<string> log;
+
+    static string arrToJson(const vector<int>& v) {
+        ostringstream ss;
+        ss << "[";
+
+        for (size_t i = 0; i < v.size(); i++) {
+            ss << v[i];
+
+            if (i + 1 < v.size())
+                ss << ",";
+        }
+
+        ss << "]";
+        return ss.str();
+    }
 
 public:
     DSU(int n) {
@@ -15,44 +35,124 @@ public:
         for (int i = 0; i < n; i++) {
             parent[i] = i;
         }
+
+        ostringstream ss;
+        ss << "{\"op\":\"init\",\"n\":" << n
+           << ",\"parent_after\":" << arrToJson(parent) << "}";
+
+        log.push_back(ss.str());
     }
 
     int find(int x) {
-        if (parent[x] == x)
-            return x;
+        vector<int> path;
 
-        parent[x] = find(parent[x]);
-        return parent[x];
+        int root = x;
+
+        while (parent[root] != root) {
+            path.push_back(root);
+            root = parent[root];
+        }
+
+        path.push_back(root);
+
+        vector<int> before = parent;
+
+        for (int node : path)
+            parent[node] = root;
+
+        ostringstream ss;
+
+        ss << "{\"op\":\"find\",\"x\":" << x
+           << ",\"path\":" << arrToJson(path)
+           << ",\"root\":" << root
+           << ",\"parent_before\":" << arrToJson(before)
+           << ",\"parent_after\":" << arrToJson(parent) << "}";
+
+        log.push_back(ss.str());
+
+        return root;
     }
 
     void unite(int a, int b) {
-        a = find(a);
-        b = find(b);
+        int ra = find(a);
+        int rb = find(b);
 
-        if (a == b)
+        if (ra == rb)
             return;
 
-        if (size[a] < size[b]) {
-            int temp = a;
-            a = b;
-            b = temp;
+        vector<int> before = parent;
+
+        if (size[ra] < size[rb]) {
+            int temp = ra;
+            ra = rb;
+            rb = temp;
         }
 
-        parent[b] = a;
-        size[a] += size[b];
+        parent[rb] = ra;
+        size[ra] += size[rb];
+
+        ostringstream ss;
+
+        ss << "{\"op\":\"union\",\"a\":" << a
+           << ",\"b\":" << b
+           << ",\"attached\":" << rb
+           << ",\"new_root\":" << ra
+           << ",\"parent_before\":" << arrToJson(before)
+           << ",\"parent_after\":" << arrToJson(parent) << "}";
+
+        log.push_back(ss.str());
     }
 
     bool connected(int a, int b) {
         return find(a) == find(b);
     }
+
+    int getSize(int x) {
+        return size[find(x)];
+    }
+
+    int numSets() {
+        int count = 0;
+
+        for (int i = 0; i < (int)parent.size(); i++) {
+            if (find(i) == i)
+                count++;
+        }
+
+        return count;
+    }
+
+    void debugForceParent(int x, int p) {
+        parent[x] = p;
+    }
+
+    void dumpLog(const string& filename) {
+        ofstream out(filename);
+
+        out << "{\n  \"events\": [\n";
+
+        for (size_t i = 0; i < log.size(); i++) {
+            out << "    " << log[i];
+
+            if (i + 1 < log.size())
+                out << ",";
+
+            out << "\n";
+        }
+
+        out << "  ]\n}\n";
+    }
 };
 
-int main(){
-    DSU dsu(5);
-    dsu.unite(0, 1);
-    dsu.unite(1, 2);
-    dsu.unite(3, 4);
-    dsu.unite(0, 4);
-    cout << dsu.connected(0, 2) << '\n';
-    cout << dsu.connected(0, 3) << '\n';    
-};
+int main() {
+
+        DSU dsu(5);
+
+        dsu.unite(0, 1);
+        dsu.unite(1, 2);
+        dsu.unite(3, 4);
+        dsu.unite(0, 4);
+ 
+
+    return 0;
+}
