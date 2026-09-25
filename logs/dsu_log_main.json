@@ -1,0 +1,27 @@
+{
+  "events": [
+    {"op":"init","n":5,"parent_after":[0,1,2,3,4]},
+    {"op":"find","x":0,"path":[0],"root":0,"parent_before":[0,1,2,3,4],"parent_after":[0,1,2,3,4]},
+    {"op":"find","x":1,"path":[1],"root":1,"parent_before":[0,1,2,3,4],"parent_after":[0,1,2,3,4]},
+    {"op":"union","a":0,"b":1,"attached":1,"new_root":0,"parent_before":[0,1,2,3,4],"parent_after":[0,0,2,3,4]},
+    {"op":"find","x":1,"path":[1,0],"root":0,"parent_before":[0,0,2,3,4],"parent_after":[0,0,2,3,4]},
+    {"op":"find","x":2,"path":[2],"root":2,"parent_before":[0,0,2,3,4],"parent_after":[0,0,2,3,4]},
+    {"op":"union","a":1,"b":2,"attached":2,"new_root":0,"parent_before":[0,0,2,3,4],"parent_after":[0,0,0,3,4]},
+    {"op":"find","x":3,"path":[3],"root":3,"parent_before":[0,0,0,3,4],"parent_after":[0,0,0,3,4]},
+    {"op":"find","x":4,"path":[4],"root":4,"parent_before":[0,0,0,3,4],"parent_after":[0,0,0,3,4]},
+    {"op":"union","a":3,"b":4,"attached":4,"new_root":3,"parent_before":[0,0,0,3,4],"parent_after":[0,0,0,3,3]},
+    {"op":"find","x":0,"path":[0],"root":0,"parent_before":[0,0,0,3,3],"parent_after":[0,0,0,3,3]},
+    {"op":"find","x":4,"path":[4,3],"root":3,"parent_before":[0,0,0,3,3],"parent_after":[0,0,0,3,3]},
+    {"op":"union","a":0,"b":4,"attached":3,"new_root":0,"parent_before":[0,0,0,3,3],"parent_after":[0,0,0,0,3]},
+    {"op":"find","x":0,"path":[0],"root":0,"parent_before":[0,0,0,0,3],"parent_after":[0,0,0,0,3]},
+    {"op":"find","x":2,"path":[2,0],"root":0,"parent_before":[0,0,0,0,3],"parent_after":[0,0,0,0,3]},
+    {"op":"find","x":0,"path":[0],"root":0,"parent_before":[0,0,0,0,3],"parent_after":[0,0,0,0,3]},
+    {"op":"find","x":3,"path":[3,0],"root":0,"parent_before":[0,0,0,0,3],"parent_after":[0,0,0,0,3]},
+    {"op":"find","x":0,"path":[0],"root":0,"parent_before":[0,0,0,0,3],"parent_after":[0,0,0,0,3]},
+    {"op":"find","x":0,"path":[0],"root":0,"parent_before":[0,0,0,0,3],"parent_after":[0,0,0,0,3]},
+    {"op":"find","x":1,"path":[1,0],"root":0,"parent_before":[0,0,0,0,3],"parent_after":[0,0,0,0,3]},
+    {"op":"find","x":2,"path":[2,0],"root":0,"parent_before":[0,0,0,0,3],"parent_after":[0,0,0,0,3]},
+    {"op":"find","x":3,"path":[3,0],"root":0,"parent_before":[0,0,0,0,3],"parent_after":[0,0,0,0,3]},
+    {"op":"find","x":4,"path":[4,3,0],"root":0,"parent_before":[0,0,0,0,3],"parent_after":[0,0,0,0,0]}
+  ]
+}

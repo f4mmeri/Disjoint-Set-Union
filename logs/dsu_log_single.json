@@ -1,0 +1,6 @@
+{
+  "events": [
+    {"op":"init","n":1,"parent_after":[0]},
+    {"op":"find","x":0,"path":[0],"root":0,"parent_before":[0],"parent_after":[0]}
+  ]
+}
