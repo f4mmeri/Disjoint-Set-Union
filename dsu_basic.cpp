@@ -5,12 +5,10 @@ using namespace std;
 class DSU {
 private:
     vector<int> parent;
-    vector<int> size;
 
 public:
     void makeSet(int n) {
         parent.resize(n);
-        size.assign(n, 1);
 
         for (int i = 0; i < n; i++) {
             parent[i] = i;
@@ -21,8 +19,7 @@ public:
         if (parent[x] == x)
             return x;
 
-        parent[x] = find(parent[x]);
-        return parent[x];
+        return find(parent[x]);
     }
 
     void unite(int a, int b) {
@@ -32,14 +29,7 @@ public:
         if (a == b)
             return;
 
-        if (size[a] < size[b]) {
-            int temp = a;
-            a = b;
-            b = temp;
-        }
-
         parent[b] = a;
-        size[a] += size[b];
     }
 
     bool connected(int a, int b) {

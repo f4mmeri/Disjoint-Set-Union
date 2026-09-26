@@ -145,52 +145,40 @@ public:
 };
 
 int main() {
-
+ 
     {
         DSU dsu;
         dsu.makeSet(5);
-
+ 
         dsu.unite(0, 1);
         dsu.unite(1, 2);
         dsu.unite(3, 4);
         dsu.unite(0, 4);
-
-        cout << "connected(0,2): "
-             << dsu.connected(0, 2) << '\n';
-
-        cout << "connected(0,3): "
-             << dsu.connected(0, 3) << '\n';
-
-        cout << "tamano del conjunto de 0: "
-             << dsu.getSize(0) << '\n';
-
-        cout << "numero de conjuntos: "
-             << dsu.numSets() << '\n';
-
+ 
         dsu.dumpLog("logs/dsu_log_main.json");
     }
-
+ 
     {
         DSU dsu;
         dsu.makeSet(1);
-
+ 
         dsu.find(0);
-
+ 
         dsu.dumpLog("logs/dsu_log_single.json");
     }
-
+ 
     {
         DSU dsu;
         dsu.makeSet(7);
-
+ 
         for (int i = 1; i < 7; i++)
             dsu.debugForceParent(i, i - 1);
-
+ 
         dsu.find(6);
-
+ 
         dsu.dumpLog("logs/dsu_log_worstcase.json");
     }
-
-
+ 
+ 
     return 0;
 }

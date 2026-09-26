@@ -1,0 +1,26 @@
+# C++ build outputs
+/build/
+*.exe
+*.out
+*.o
+*.obj
+*.a
+*.so
+*.dll
+*.dylib
+*.pdb
+*.ilk
+
+# Manim render output
+/media/
+
+# Python cache and virtual environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Operating system files
+.DS_Store
+Thumbs.db
